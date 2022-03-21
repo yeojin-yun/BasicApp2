@@ -71,7 +71,6 @@
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="75F-fS-Kyc">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="50" id="MVR-L3-0dK"/>
                                             <constraint firstAttribute="width" secondItem="75F-fS-Kyc" secondAttribute="height" multiplier="1:1" id="Vyk-fd-BTS"/>
                                             <constraint firstAttribute="height" constant="50" id="gDA-Dc-VmI"/>
                                         </constraints>
@@ -143,12 +142,11 @@
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="0L5-0V-lj8">
                                 <rect key="frame" x="20" y="460" width="330" height="50"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ldE-As-MTk">
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ldE-As-MTk">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="ldE-As-MTk" secondAttribute="height" multiplier="1:1" id="FIN-LT-b76"/>
                                             <constraint firstAttribute="height" constant="50" id="REm-wn-cpb"/>
-                                            <constraint firstAttribute="width" constant="50" id="SeZ-Vv-1s1"/>
                                         </constraints>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" cornerStyle="large"/>
@@ -196,8 +194,8 @@
                                     <constraint firstItem="gM2-lf-GGG" firstAttribute="width" secondItem="31A-ZR-mDg" secondAttribute="height" multiplier="1:1" id="0lG-bL-vbU"/>
                                 </constraints>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="euh-uT-yLd">
-                                <rect key="frame" x="161" y="579" width="70" height="58"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="euh-uT-yLd">
+                                <rect key="frame" x="180.5" y="579" width="53.5" height="34.5"/>
                                 <color key="backgroundColor" red="0.22181405670000001" green="0.82289121610000004" blue="0.84353298610000005" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
@@ -254,7 +252,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6XP-LU-vsZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1097" y="43"/>
+            <point key="canvasLocation" x="1220" y="73"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hMN-cX-fnV">

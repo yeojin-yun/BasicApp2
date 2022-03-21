@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C2DF27327E85E6E0079168B /* CalculatorLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2DF27227E85E6E0079168B /* CalculatorLogic.swift */; };
 		0C369C0727E4223A00FFBA71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C369C0627E4223A00FFBA71 /* AppDelegate.swift */; };
 		0C369C0927E4223A00FFBA71 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C369C0827E4223A00FFBA71 /* SceneDelegate.swift */; };
 		0C369C0B27E4223A00FFBA71 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C369C0A27E4223A00FFBA71 /* ViewController.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0C2DF27227E85E6E0079168B /* CalculatorLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorLogic.swift; sourceTree = "<group>"; };
 		0C369C0327E4223A00FFBA71 /* Calculate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calculate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C369C0627E4223A00FFBA71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0C369C0827E4223A00FFBA71 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				0C369C0627E4223A00FFBA71 /* AppDelegate.swift */,
 				0C369C0827E4223A00FFBA71 /* SceneDelegate.swift */,
 				0C369C0A27E4223A00FFBA71 /* ViewController.swift */,
+				0C2DF27227E85E6E0079168B /* CalculatorLogic.swift */,
 				0C369C0C27E4223A00FFBA71 /* Main.storyboard */,
 				0C369C1227E4223B00FFBA71 /* Assets.xcassets */,
 				0C369C1427E4223B00FFBA71 /* LaunchScreen.storyboard */,
@@ -146,6 +149,7 @@
 			files = (
 				0C369C1127E4223A00FFBA71 /* Calculate.xcdatamodeld in Sources */,
 				0C369C0B27E4223A00FFBA71 /* ViewController.swift in Sources */,
+				0C2DF27327E85E6E0079168B /* CalculatorLogic.swift in Sources */,
 				0C369C1E27E4229C00FFBA71 /* MyButton.swift in Sources */,
 				0C369C0727E4223A00FFBA71 /* AppDelegate.swift in Sources */,
 				0C369C0927E4223A00FFBA71 /* SceneDelegate.swift in Sources */,

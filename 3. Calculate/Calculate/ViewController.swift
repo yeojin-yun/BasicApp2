@@ -9,9 +9,22 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var preStringArray: [String] = []
-    var preStringNumber: String = "0"
-    var preStringToInt: Int = 0
+//    var preStringArray: [String] = []
+//    var preStringNumber: String = "0"
+//    var preStringToInt: Int = 0
+    
+    private var isFinishedTypingNumber = true
+    //private : 다른 클래스에서 접근 불가능 (해당 스코프에서만 접근 가능)
+    
+    private var displayValue: Double {
+        get {
+            guard let safeDouble = Double(resultLbl.text!) else { fatalError("Cannot convert String to Double")}
+            return safeDouble
+        }
+        set {
+            resultLbl.text = String(newValue)
+        }
+    }
     
     
     let resultLbl = UILabel()
@@ -47,6 +60,44 @@ class ViewController: UIViewController {
 
 //MARK: -Button Event
 extension ViewController {
+    //숫자 버튼을 누르면 숫자가 previousArray로 들어가고 그걸 다시 stringNumber값으로 보냄
+    @objc private func numberPadTapped(_ sender: UIButton) {
+        
+        //현재 버튼의 이름이 resultLbl에 나타나도록
+        if let numValue = sender.currentTitle {
+            if isFinishedTypingNumber {
+                resultLbl.text = numValue
+                isFinishedTypingNumber = false
+            } else {
+                if numValue == "." {
+                    let isInt = floor(displayValue) == displayValue
+                    
+                    if floor(displayValue) != displayValue {
+                        return
+                    }
+                    
+                }
+                
+                // 누른 버튼의 타이틀이 Label에 누적되도록
+                resultLbl.text = resultLbl.text! + numValue
+            }
+        }
+        
+        
+        
+    }
+    @objc private func calculateBtnTapped(_ sender: UIButton) {
+        isFinishedTypingNumber = true
+
+        
+        if let calcalutaMethod = sender.currentTitle {
+            let calculator = CalculateLogic(number: displayValue)
+            guard let result = calculator.calculate(symbol: calcalutaMethod) else { fatalError("The result of the calculation is nil.")}
+             displayValue = result
+        }
+    }
+    
+    
     @objc private func allClearBtnTapped(_ sender: UIButton) {
         
     }
@@ -56,16 +107,6 @@ extension ViewController {
     @objc private func percentageBtnTapped(_ sender: UIButton) {
         
     }
-    //숫자 버튼을 누르면 숫자가 previousArray로 들어가고 그걸 다시 stringNumber값으로 보냄
-    @objc private func numberPadTapped(_ sender: UIButton) {
-        if let currentInt = sender.currentTitle {
-            preStringArray.append(currentInt)
-        }
-        preStringNumber = preStringArray.joined()
-        print(preStringNumber)
-        resultLbl.text = preStringNumber
-    }
-
     @objc private func decimalPointBtnTapped(_ sender: UIButton) {
         
     }
@@ -78,16 +119,8 @@ extension ViewController {
     @objc private func subtractBtnTapped(_ sender: UIButton) {
         
     }
-    @objc private func addBtnTapped(_ sender: UIButton) {
-        preStringToInt = Int(preStringNumber) ?? 0
-        let preStrToInt = Int(preStringNumber) ?? 0
-        preStringArray = []
-        print(preStrToInt)
-    }
     @objc private func resultBtnTapped(_ sender: UIButton) {
-        
     }
-    
 }
 
 
@@ -107,28 +140,20 @@ extension ViewController {
     }
     
     final private func addTarget() {
-        allClearBtn.addTarget(self, action: #selector(allClearBtnTapped(_:)), for: .touchUpInside)
-        plusMinusBtn.addTarget(self, action: #selector(plusMinusBtnTapped(_:)), for: .touchUpInside)
-        percentageBtn.addTarget(self, action: #selector(percentageBtnTapped(_:)), for: .touchUpInside)
+        [allClearBtn, plusMinusBtn, percentageBtn, decimalPointBtn].forEach {
+            $0.addTarget(self, action: #selector(calculateBtnTapped(_:)), for: .touchUpInside)
+        }
+
+        [oneBtn, twoBtn, threeBtn, fourBtn, fiveBtn, sixBtn, sevenBtn, eightBtn, nineBtn, zeroBtn].forEach { 
+            $0.addTarget(self, action: #selector(numberPadTapped(_:)), for: .touchUpInside)
+        }
+
         
-        
-        oneBtn.addTarget(self, action: #selector(numberPadTapped(_:)), for: .touchUpInside)
-        twoBtn.addTarget(self, action: #selector(numberPadTapped(_:)), for: .touchUpInside)
-        threeBtn.addTarget(self, action: #selector(numberPadTapped(_:)), for: .touchUpInside)
-        fourBtn.addTarget(self, action: #selector(numberPadTapped(_:)), for: .touchUpInside)
-        fiveBtn.addTarget(self, action: #selector(numberPadTapped(_:)), for: .touchUpInside)
-        sixBtn.addTarget(self, action: #selector(numberPadTapped(_:)), for: .touchUpInside)
-        sevenBtn.addTarget(self, action: #selector(numberPadTapped(_:)), for: .touchUpInside)
-        eightBtn.addTarget(self, action: #selector(numberPadTapped(_:)), for: .touchUpInside)
-        nineBtn.addTarget(self, action: #selector(numberPadTapped(_:)), for: .touchUpInside)
-        zeroBtn.addTarget(self, action: #selector(numberPadTapped(_:)), for: .touchUpInside)
-        
-        
-        decimalPointBtn.addTarget(self, action: #selector(decimalPointBtnTapped(_:)), for: .touchUpInside)
+
         divideBtn.addTarget(self, action: #selector(divideBtnTapped(_:)), for: .touchUpInside)
         multiplyBtn.addTarget(self, action: #selector(multiplyBtnTapped(_:)), for: .touchUpInside)
         subtractBtn.addTarget(self, action: #selector(subtractBtnTapped(_:)), for: .touchUpInside)
-        addBtn.addTarget(self, action: #selector(addBtnTapped(_:)), for: .touchUpInside)
+        addBtn.addTarget(self, action: #selector(calculateBtnTapped(_:)), for: .touchUpInside)
         resultBtn.addTarget(self, action: #selector(resultBtnTapped(_:)), for: .touchUpInside)
     }
     
@@ -170,8 +195,6 @@ extension ViewController {
             firstStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             firstStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             firstStackView.heightAnchor.constraint(equalToConstant: 80),
-            //oneBtn.widthAnchor.constraint(equalToConstant: 90),
-            //oneBtn.heightAnchor.constraint(equalToConstant: 90),
             
             resultLbl.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
             resultLbl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),

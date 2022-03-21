@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol dataDelegate {
+protocol dataDelegate: AnyObject {
     func messageEdit(message: String)
     func getBGColor(color: UIColor)
     func getTextColor(color: UIColor)
