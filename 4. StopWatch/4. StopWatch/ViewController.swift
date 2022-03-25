@@ -14,7 +14,13 @@ class ViewController: UIViewController {
     let startStopButton = UIButton(frame: CGRect(x: 0, y: 0, width: 80, height: 80)) // 시작&중단 버튼
     let tableView = UITableView() // 랩 시간을 기록할 테이블 뷰
     
-    var testArray = ["1", "2", "3", "4", "5", "6", "7", "8"]
+    var lapRecordArray: [String] = []
+    var lapTimeArray: [String] = []
+    
+    var timer = Timer()
+    var counter = 1
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,34 +32,75 @@ class ViewController: UIViewController {
     func setTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(LapTableViewCell.self, forCellReuseIdentifier: LapTableViewCell.identifier)
     }
 }
 
 //MARK: - Button Event
 extension ViewController {
     @objc func leftBtnTapped(_ sender: UIButton) {
-        
+        if sender.currentTitle == "랩" {
+            let arrayCount = String(lapRecordArray.count)
+            lapRecordArray.append("랩 \(arrayCount)")
+            lapTimeArray.append(mainLbl.text ?? "")
+            tableView.reloadData()
+        }
     }
     @objc func rightBtnTapped(_ sender: UIButton) {
-        
+        //버튼을 눌렀을 때 버튼의 title이 "시작"이라면
+        if sender.currentTitle == "시작" {
+            //버튼의 타이틀을 "중지"로 바꾸고
+            updateStartStopBtn()
+            //타이머가 시작됨
+            timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+            
+        // 버튼을 눌렀을 때 버튼의 title이 "중지"라면
+        } else if sender.currentTitle == "중지" {
+            //타이머를 멈추고
+            timer.invalidate()
+            
+        }
+    }
+    
+    @objc func updateTime() {
+        if counter > 0 {
+            let hours = counter / 3600
+            let minutes = (counter % 3600) / 60
+            let seconds = (counter % 3600) % 60
+            
+            counter += 1
+            print(counter)
+            print(hours)
+            print(minutes)
+            print(seconds)
+            mainLbl.text = String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+        }
+    }
+    
+    func updateStartStopBtn() {
+        startStopButton.setTitle("중지", for: .normal)
+        startStopButton.setTitleColor(.red, for: .normal)
+        startStopButton.backgroundColor = UIColor(red: 1.00, green: 0.00, blue: 0.00, alpha: 0.40)
+        startStopButton.layer.cornerRadius = startStopButton.bounds.size.width * 0.5
+        startStopButton.layer.borderWidth = 2
+        startStopButton.layer.borderColor = CGColor.init(red: 1.00, green: 0.00, blue: 0.00, alpha: 1.00)
     }
 }
 
 //MARK: -UITableViewDelegate, UITableViewDataSource
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return testArray.count
+        return lapRecordArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! UITableViewCell
-        //cell.contentView.backgroundColor = .black
-        cell.textLabel?.textColor = .white
-        cell.textLabel?.text = testArray[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: LapTableViewCell.identifier, for: indexPath) as! LapTableViewCell
+        cell.mainTitleLabel.text = lapRecordArray[indexPath.row]
+        cell.timeLabel.text = lapTimeArray[indexPath.row]
         return cell
     }
     
+    //테이블뷰 셀의 display에 관한 메서드
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.backgroundColor = .black
     }
