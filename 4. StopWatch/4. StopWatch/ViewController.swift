@@ -40,17 +40,28 @@ class ViewController: UIViewController {
 extension ViewController {
     @objc func leftBtnTapped(_ sender: UIButton) {
         if sender.currentTitle == "랩" {
-            let arrayCount = String(lapRecordArray.count)
+            let arrayCount = String(lapRecordArray.count + 1)
             lapRecordArray.append("랩 \(arrayCount)")
             lapTimeArray.append(mainLbl.text ?? "")
             tableView.reloadData()
+        } else if sender.currentTitle == "재설정" {
+            timer.invalidate()
+            counter = 1
+            mainLbl.text = "00:00:00"
+            startStopButton.setTitle("시작", for: .normal)
+            lapTimeArray.removeAll()
+            lapRecordArray.removeAll()
+            tableView.reloadData()
         }
     }
+    
+    
     @objc func rightBtnTapped(_ sender: UIButton) {
         //버튼을 눌렀을 때 버튼의 title이 "시작"이라면
         if sender.currentTitle == "시작" {
             //버튼의 타이틀을 "중지"로 바꾸고
             updateStartStopBtn()
+            lapResetButton.setTitle("랩", for: .normal)
             //타이머가 시작됨
             timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
             
@@ -58,7 +69,8 @@ extension ViewController {
         } else if sender.currentTitle == "중지" {
             //타이머를 멈추고
             timer.invalidate()
-            
+            lapResetButton.setTitle("재설정", for: .normal)
+            startStopButton.setTitle("시작", for: .normal)
         }
     }
     
@@ -69,10 +81,6 @@ extension ViewController {
             let seconds = (counter % 3600) % 60
             
             counter += 1
-            print(counter)
-            print(hours)
-            print(minutes)
-            print(seconds)
             mainLbl.text = String(format: "%02d:%02d:%02d", hours, minutes, seconds)
         }
     }
