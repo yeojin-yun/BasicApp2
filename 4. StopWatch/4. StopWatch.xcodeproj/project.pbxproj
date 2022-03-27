@@ -61,11 +61,11 @@
 				0C2DF2BA27EAEF170079168B /* AppDelegate.swift */,
 				0C2DF2BC27EAEF170079168B /* SceneDelegate.swift */,
 				0C2DF2BE27EAEF170079168B /* ViewController.swift */,
+				0C2DF31227EDA7100079168B /* LapTableViewCell.swift */,
 				0C2DF2C027EAEF170079168B /* Main.storyboard */,
 				0C2DF2C327EAEF180079168B /* Assets.xcassets */,
 				0C2DF2C527EAEF180079168B /* LaunchScreen.storyboard */,
 				0C2DF2C827EAEF180079168B /* Info.plist */,
-				0C2DF31227EDA7100079168B /* LapTableViewCell.swift */,
 			);
 			path = "4. StopWatch";
 			sourceTree = "<group>";

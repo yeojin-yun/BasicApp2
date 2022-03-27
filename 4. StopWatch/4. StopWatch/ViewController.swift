@@ -9,17 +9,18 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    //MARK: -Propety
+    
     let mainLbl = UILabel() // 시간을 표시할 레이블
     let lapResetButton = UIButton(frame: CGRect(x: 0, y: 0, width: 80, height: 80)) // 랩&재설정 버튼
     let startStopButton = UIButton(frame: CGRect(x: 0, y: 0, width: 80, height: 80)) // 시작&중단 버튼
     let tableView = UITableView() // 랩 시간을 기록할 테이블 뷰
     
-    var lapRecordArray: [String] = []
-    var lapTimeArray: [String] = []
+    var lapRecordArray: [String] = [] // 기록될 랩 번호가 저장된 배열. 예) "랩 1", "랩 2" 등
+    var lapTimeArray: [String] = [] // 기록될 시간이 저장될 배열.
     
     var timer = Timer()
     var counter = 1
-    
     
 
     override func viewDidLoad() {
@@ -38,12 +39,15 @@ class ViewController: UIViewController {
 
 //MARK: - Button Event
 extension ViewController {
+    //왼쪽 버튼 : 오른쪽 버튼이 "시작" -> 왼쪽은 "랩"으로 타이틀이 바뀌고, 오른쪽 버튼이 "중단" -> 왼쪽은 "재설정"으로 바뀜
     @objc func leftBtnTapped(_ sender: UIButton) {
+        // 왼쪽이 "랩" 타이틀일 때는, 기록한 랩 번호과 시간이 배열에 저장되고, 그 배열이 table에 반영될 수 있도록 table을 reload함
         if sender.currentTitle == "랩" {
             let arrayCount = String(lapRecordArray.count + 1)
             lapRecordArray.append("랩 \(arrayCount)")
             lapTimeArray.append(mainLbl.text ?? "")
             tableView.reloadData()
+        // 왼쪽이 "재설정" 타이틀 일 때는, 기록된 랩 번호와 시간 + 시간이 표시되던 mainLabel이 전부 초기값으로 셋팅되고, table도 reload되어야 함
         } else if sender.currentTitle == "재설정" {
             timer.invalidate()
             counter = 1
@@ -85,6 +89,7 @@ extension ViewController {
         }
     }
     
+    //오른쪽 버튼이 "시작"에서 "중지"로 바뀔 때
     func updateStartStopBtn() {
         startStopButton.setTitle("중지", for: .normal)
         startStopButton.setTitleColor(.red, for: .normal)
@@ -178,7 +183,6 @@ extension ViewController {
             lapResetButton.widthAnchor.constraint(equalToConstant: 80),
             lapResetButton.heightAnchor.constraint(equalToConstant: 80),
             
-            
             startStopButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             startStopButton.topAnchor.constraint(equalTo: lapResetButton.topAnchor),
             startStopButton.widthAnchor.constraint(equalToConstant: 80),
@@ -188,8 +192,6 @@ extension ViewController {
             tableView.topAnchor.constraint(equalTo: startStopButton.bottomAnchor, constant: 20),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40)
-            
         ])
-        
     }
 }
