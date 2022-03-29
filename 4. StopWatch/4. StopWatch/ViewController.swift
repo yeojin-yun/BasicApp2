@@ -11,16 +11,16 @@ class ViewController: UIViewController {
     
     //MARK: -Propety
     
-    let mainLbl = UILabel() // 시간을 표시할 레이블
-    let lapResetButton = UIButton(frame: CGRect(x: 0, y: 0, width: 80, height: 80)) // 랩&재설정 버튼
-    let startStopButton = UIButton(frame: CGRect(x: 0, y: 0, width: 80, height: 80)) // 시작&중단 버튼
-    let tableView = UITableView() // 랩 시간을 기록할 테이블 뷰
+    private let mainLbl = UILabel() // 시간을 표시할 레이블
+    private let lapResetButton = UIButton(frame: CGRect(x: 0, y: 0, width: 80, height: 80)) // 랩&재설정 버튼
+    private let startStopButton = UIButton(frame: CGRect(x: 0, y: 0, width: 80, height: 80)) // 시작&중단 버튼
+    private let tableView = UITableView() // 랩 시간을 기록할 테이블 뷰
     
-    var lapRecordArray: [String] = [] // 기록될 랩 번호가 저장된 배열. 예) "랩 1", "랩 2" 등
-    var lapTimeArray: [String] = [] // 기록될 시간이 저장될 배열.
+    private var lapRecordArray: [String] = [] // 기록될 랩 번호가 저장된 배열. 예) "랩 1", "랩 2" 등
+    private var lapTimeArray: [String] = [] // 기록될 시간이 저장될 배열.
     
-    var timer = Timer()
-    var counter = 1
+    private var timer = Timer()
+    private var counter = 1
     
 
     override func viewDidLoad() {
@@ -30,7 +30,7 @@ class ViewController: UIViewController {
         setTableView()
     }
     
-    func setTableView() {
+    private func setTableView() {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(LapTableViewCell.self, forCellReuseIdentifier: LapTableViewCell.identifier)
@@ -40,7 +40,7 @@ class ViewController: UIViewController {
 //MARK: - Button Event
 extension ViewController {
     //왼쪽 버튼 : 오른쪽 버튼이 "시작" -> 왼쪽은 "랩"으로 타이틀이 바뀌고, 오른쪽 버튼이 "중단" -> 왼쪽은 "재설정"으로 바뀜
-    @objc func leftBtnTapped(_ sender: UIButton) {
+    @objc private func leftBtnTapped(_ sender: UIButton) {
         // 왼쪽이 "랩" 타이틀일 때는, 기록한 랩 번호과 시간이 배열에 저장되고, 그 배열이 table에 반영될 수 있도록 table을 reload함
         if sender.currentTitle == "랩" {
             let arrayCount = String(lapRecordArray.count + 1)
@@ -60,7 +60,7 @@ extension ViewController {
     }
     
     
-    @objc func rightBtnTapped(_ sender: UIButton) {
+    @objc private func rightBtnTapped(_ sender: UIButton) {
         //버튼을 눌렀을 때 버튼의 title이 "시작"이라면
         if sender.currentTitle == "시작" {
             //버튼의 타이틀을 "중지"로 바꾸고
@@ -78,7 +78,7 @@ extension ViewController {
         }
     }
     
-    @objc func updateTime() {
+    @objc private func updateTime() {
         if counter > 0 {
             let hours = counter / 3600
             let minutes = (counter % 3600) / 60
@@ -90,7 +90,7 @@ extension ViewController {
     }
     
     //오른쪽 버튼이 "시작"에서 "중지"로 바뀔 때
-    func updateStartStopBtn() {
+    private func updateStartStopBtn() {
         startStopButton.setTitle("중지", for: .normal)
         startStopButton.setTitleColor(.red, for: .normal)
         startStopButton.backgroundColor = UIColor(red: 1.00, green: 0.00, blue: 0.00, alpha: 0.40)

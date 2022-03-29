@@ -19,7 +19,7 @@ class LapTableViewCell: UITableViewCell {
         setUI()
     }
     
-    func setUI() {
+    private func setUI() {
         [mainTitleLabel, timeLabel].forEach {
             self.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
